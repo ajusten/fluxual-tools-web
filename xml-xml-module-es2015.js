@@ -16,12 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const routes = [
-    {
-        path: 'format',
-        loadChildren: () => __webpack_require__.e(/*! import() | xml-format-xml-format-module */ "xml-format-xml-format-module").then(__webpack_require__.bind(null, /*! ./xml-format/xml-format.module */ "./src/app/xml/xml-format/xml-format.module.ts")).then(m => m.XmlFormatModule)
-    }
-];
+const routes = [];
 let XmlRoutingModule = class XmlRoutingModule {
 };
 XmlRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

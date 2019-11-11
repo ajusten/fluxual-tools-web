@@ -11,12 +11,7 @@
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-            var routes = [
-                {
-                    path: 'format',
-                    loadChildren: function () { return __webpack_require__.e(/*! import() | xml-format-xml-format-module */ "xml-format-xml-format-module").then(__webpack_require__.bind(null, /*! ./xml-format/xml-format.module */ "./src/app/xml/xml-format/xml-format.module.ts")).then(function (m) { return m.XmlFormatModule; }); }
-                }
-            ];
+            var routes = [];
             var XmlRoutingModule = /** @class */ (function () {
                 function XmlRoutingModule() {
                 }

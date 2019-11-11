@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"json-json-module":"json-json-module","xml-xml-module":"xml-xml-module","json-format-json-format-module":"json-format-json-format-module","xml-format-xml-format-module":"xml-format-xml-format-module"}[chunkId]||chunkId) +    "-es5.js"
+/******/ 		return __webpack_require__.p + "" + ({"json-json-module":"json-json-module","xml-xml-module":"xml-xml-module"}[chunkId]||chunkId) +    "-es5.js"
 /******/ 	}
 /******/
 /******/ 	// The require function
