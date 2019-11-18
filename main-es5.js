@@ -28,7 +28,7 @@
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<app-nav></app-nav>");
+            /* harmony default export */ __webpack_exports__["default"] = ("<app-nav class=\"mat-typography\"></app-nav>");
             /***/ 
         }),
         /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/home/home.component.html": 
@@ -39,7 +39,7 @@
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<p>home works!</p>\n");
+            /* harmony default export */ __webpack_exports__["default"] = ("<div fxLayout=\"row\">\n  <div fxFlex=\"20\">\n    <mat-selection-list role=\"list\"\n      [(ngModel)]=\"filters\"\n      (selectionChange)=\"onSearchChange($event)\"\n      dense>\n      <div *ngFor=\"let facet of facets\">\n        <h3 matSubheader>{{facet.title}}</h3>\n        <mat-list-option *ngFor=\"let tag of facet.tags\"\n          [selected]=\"tag.selected\"\n          [value]=\"tag\">\n          <mat-icon matListIcon>{{tag.icon}}</mat-icon> {{tag.title}}\n        </mat-list-option>\n        <mat-divider></mat-divider>\n      </div>\n    </mat-selection-list>\n\n  </div>\n  <div fxFlex=\"80\">\n\n    <h1>{{title}}</h1>\n    <mat-chip-list #chipList\n      aria-label=\"Search Criteria\"\n      *ngIf=\"filters.length > 0\">\n      <mat-chip *ngFor=\"let filter of filters\"\n        removable=\"true\"\n        (removed)=\"onSearchRemove(filter)\">\n        {{filter.category}} = {{filter.title}}\n        <mat-icon matChipRemove>cancel</mat-icon>\n      </mat-chip>\n      <mat-chip removable=\"true\"\n        (removed)=\"clear()\">\n        Clear Search\n        <mat-icon matChipRemove>cancel</mat-icon>\n      </mat-chip>\n    </mat-chip-list>\n\n    <div class=\"grid-container\">\n\n      <mat-grid-list cols=\"4\">\n        <mat-grid-tile *ngFor=\"let tool of tools\">\n          <mat-card class=\"dashboard-card\">\n            <a [routerLink]=\"['tools', tool.id]\">\n              <mat-card-content fxLayout=\"column\"\n                fxLayoutFill>\n                <div class=\"mat-h3\">{{tool.title}}</div>\n                <div fxFlex\n                  fxLayout=\"column\"\n                  fxLayoutFill\n                  fxLayoutAlign=\"center center\">\n                  <mat-icon color=\"primary\">{{tool.icon}}</mat-icon>\n                </div>\n              </mat-card-content>\n            </a>\n          </mat-card>\n        </mat-grid-tile>\n      </mat-grid-list>\n    </div>\n  </div>\n</div>");
             /***/ 
         }),
         /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/nav/nav.component.html": 
@@ -50,7 +50,7 @@
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport\n      attr.role=\"dialog\"\n      mode=\"over\"\n      opened=\"false\">\n    <mat-toolbar>Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item href=\"#\">Link 1</a>\n      <a mat-list-item href=\"#\">Link 2</a>\n      <a mat-list-item href=\"#\">Link 3</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <!-- <button\n        type=\"button\"\n        aria-label=\"Toggle sidenav\"\n        mat-icon-button\n        (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button> -->\n      <span>tools</span>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n");
+            /* harmony default export */ __webpack_exports__["default"] = ("<mat-sidenav-container class=\"sidenav-container\">\n  <mat-sidenav #drawer class=\"sidenav\" fixedInViewport\n      attr.role=\"dialog\"\n      mode=\"over\"\n      opened=\"false\">\n    <mat-toolbar>Menu</mat-toolbar>\n    <mat-nav-list>\n      <a mat-list-item href=\"#\">Link 1</a>\n      <a mat-list-item href=\"#\">Link 2</a>\n      <a mat-list-item href=\"#\">Link 3</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <!-- <button\n        type=\"button\"\n        aria-label=\"Toggle sidenav\"\n        mat-icon-button\n        (click)=\"drawer.toggle()\"\n        *ngIf=\"isHandset$ | async\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button> -->\n      <a mat-button routerLink=\"/\">Flux Tools</a>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n");
             /***/ 
         }),
         /***/ "./node_modules/tslib/tslib.es6.js": 
@@ -369,12 +369,14 @@
             var routes = [
                 { path: '', component: _home_home_component__WEBPACK_IMPORTED_MODULE_3__["HomeComponent"] },
                 {
-                    path: 'json',
-                    loadChildren: function () { return __webpack_require__.e(/*! import() | json-json-module */ "json-json-module").then(__webpack_require__.bind(null, /*! ./json/json.module */ "./src/app/json/json.module.ts")).then(function (m) { return m.JsonModule; }); }
-                },
-                {
-                    path: 'xml',
-                    loadChildren: function () { return __webpack_require__.e(/*! import() | xml-xml-module */ "xml-xml-module").then(__webpack_require__.bind(null, /*! ./xml/xml.module */ "./src/app/xml/xml.module.ts")).then(function (m) { return m.XmlModule; }); }
+                    path: 'tools',
+                    children: [
+                        { path: 'json-format', loadChildren: function () { return Promise.all(/*! import() | tools-json-format */ [__webpack_require__.e("default~tools-json-format~tools-json-to-schema~tools-json-to-xml~tools-json-to-yaml"), __webpack_require__.e("tools-json-format")]).then(__webpack_require__.bind(null, /*! ./tools/json-format */ "./src/app/tools/json-format/index.ts")).then(function (m) { return m.JsonFormatModule; }); } },
+                        // { path: 'json-path', loadChildren:() => import("./tools/json-path").then(m => m.JsonPathModule)},
+                        { path: 'json-to-schema', loadChildren: function () { return Promise.all(/*! import() | tools-json-to-schema */ [__webpack_require__.e("default~tools-json-format~tools-json-to-schema~tools-json-to-xml~tools-json-to-yaml"), __webpack_require__.e("tools-json-to-schema")]).then(__webpack_require__.bind(null, /*! ./tools/json-to-schema */ "./src/app/tools/json-to-schema/index.ts")).then(function (m) { return m.JsonToSchemaModule; }); } },
+                        { path: 'json-to-xml', loadChildren: function () { return Promise.all(/*! import() | tools-json-to-xml */ [__webpack_require__.e("default~tools-json-format~tools-json-to-schema~tools-json-to-xml~tools-json-to-yaml"), __webpack_require__.e("tools-json-to-xml")]).then(__webpack_require__.bind(null, /*! ./tools/json-to-xml */ "./src/app/tools/json-to-xml/index.ts")).then(function (m) { return m.JsonToXmlModule; }); } },
+                        { path: 'json-to-yaml', loadChildren: function () { return Promise.all(/*! import() | tools-json-to-yaml */ [__webpack_require__.e("default~tools-json-format~tools-json-to-schema~tools-json-to-xml~tools-json-to-yaml"), __webpack_require__.e("tools-json-to-yaml")]).then(__webpack_require__.bind(null, /*! ./tools/json-to-yaml */ "./src/app/tools/json-to-yaml/index.ts")).then(function (m) { return m.JsonToYamlModule; }); } }
+                    ]
                 }
             ];
             var AppRoutingModule = /** @class */ (function () {
@@ -439,18 +441,24 @@
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-            /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-            /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-            /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
-            /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
-            /* harmony import */ var _nav_nav_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nav/nav.component */ "./src/app/nav/nav.component.ts");
-            /* harmony import */ var _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/cdk/layout */ "./node_modules/@angular/cdk/esm2015/layout.js");
-            /* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm2015/toolbar.js");
-            /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm2015/button.js");
-            /* harmony import */ var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/sidenav */ "./node_modules/@angular/material/esm2015/sidenav.js");
-            /* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm2015/icon.js");
-            /* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/list */ "./node_modules/@angular/material/esm2015/list.js");
-            /* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm2015/form-field.js");
+            /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+            /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+            /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+            /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+            /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
+            /* harmony import */ var _nav_nav_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nav/nav.component */ "./src/app/nav/nav.component.ts");
+            /* harmony import */ var _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/cdk/layout */ "./node_modules/@angular/cdk/esm2015/layout.js");
+            /* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm2015/toolbar.js");
+            /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm2015/button.js");
+            /* harmony import */ var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/sidenav */ "./node_modules/@angular/material/esm2015/sidenav.js");
+            /* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm2015/icon.js");
+            /* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/list */ "./node_modules/@angular/material/esm2015/list.js");
+            /* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm2015/form-field.js");
+            /* harmony import */ var _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/grid-list */ "./node_modules/@angular/material/esm2015/grid-list.js");
+            /* harmony import */ var _angular_material_card__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material/card */ "./node_modules/@angular/material/esm2015/card.js");
+            /* harmony import */ var _angular_material_menu__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/material/menu */ "./node_modules/@angular/material/esm2015/menu.js");
+            /* harmony import */ var _angular_material_chips__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/chips */ "./node_modules/@angular/material/esm2015/chips.js");
+            /* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm2015/flex-layout.js");
             var AppModule = /** @class */ (function () {
                 function AppModule() {
                 }
@@ -459,27 +467,194 @@
             AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
                     declarations: [
-                        _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-                        _home_home_component__WEBPACK_IMPORTED_MODULE_6__["HomeComponent"],
-                        _nav_nav_component__WEBPACK_IMPORTED_MODULE_7__["NavComponent"]
+                        _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
+                        _home_home_component__WEBPACK_IMPORTED_MODULE_7__["HomeComponent"],
+                        _nav_nav_component__WEBPACK_IMPORTED_MODULE_8__["NavComponent"]
                     ],
                     imports: [
                         _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                        _app_routing_module__WEBPACK_IMPORTED_MODULE_3__["AppRoutingModule"],
-                        _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
-                        _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_8__["LayoutModule"],
-                        _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_9__["MatToolbarModule"],
-                        _angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatButtonModule"],
-                        _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_11__["MatSidenavModule"],
-                        _angular_material_icon__WEBPACK_IMPORTED_MODULE_12__["MatIconModule"],
-                        _angular_material_list__WEBPACK_IMPORTED_MODULE_13__["MatListModule"]
+                        _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
+                        _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"],
+                        _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                        _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_9__["LayoutModule"],
+                        _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_10__["MatToolbarModule"],
+                        _angular_material_button__WEBPACK_IMPORTED_MODULE_11__["MatButtonModule"],
+                        _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_12__["MatSidenavModule"],
+                        _angular_material_icon__WEBPACK_IMPORTED_MODULE_13__["MatIconModule"],
+                        _angular_material_list__WEBPACK_IMPORTED_MODULE_14__["MatListModule"],
+                        _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_16__["MatGridListModule"],
+                        _angular_material_card__WEBPACK_IMPORTED_MODULE_17__["MatCardModule"],
+                        _angular_material_menu__WEBPACK_IMPORTED_MODULE_18__["MatMenuModule"],
+                        _angular_material_list__WEBPACK_IMPORTED_MODULE_14__["MatListModule"],
+                        _angular_material_chips__WEBPACK_IMPORTED_MODULE_19__["MatChipsModule"],
+                        _angular_flex_layout__WEBPACK_IMPORTED_MODULE_20__["FlexLayoutModule"]
                     ],
                     providers: [
-                        { provide: _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__["MAT_FORM_FIELD_DEFAULT_OPTIONS"], useValue: { appearance: 'legacy' } }
+                        { provide: _angular_material_form_field__WEBPACK_IMPORTED_MODULE_15__["MAT_FORM_FIELD_DEFAULT_OPTIONS"], useValue: { appearance: 'legacy' } }
                     ],
-                    bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
+                    bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
                 })
             ], AppModule);
+            /***/ 
+        }),
+        /***/ "./src/app/core/metadata.service.ts": 
+        /*!******************************************!*\
+          !*** ./src/app/core/metadata.service.ts ***!
+          \******************************************/
+        /*! exports provided: MetadataService */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MetadataService", function () { return MetadataService; });
+            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+            /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+            var MetadataService = /** @class */ (function () {
+                function MetadataService() {
+                    this.tools = [
+                        {
+                            id: 'json-format',
+                            title: 'Format JSON',
+                            icon: 'format_paint',
+                            description: 'Format JSON to make it easily readable',
+                            tags: ['Input:JSON', 'Output:JSON', 'Action:Format']
+                        },
+                        {
+                            id: 'json-to-schema',
+                            title: 'Create JSON Schema',
+                            icon: 'account_tree',
+                            description: 'Create JSON Schema from an existing JSON document',
+                            tags: ['Input:JSON', 'Output:JSON Schema', 'Action:Convert']
+                        },
+                        {
+                            id: 'json-to-xml',
+                            title: 'Convert JSON to XML',
+                            icon: 'transform',
+                            description: 'Create an XML document from an existing JSON document',
+                            tags: ['Input:JSON', 'Output:XML', 'Action:Convert']
+                        },
+                        {
+                            id: 'json-to-yaml',
+                            title: 'Convert JSON to YAML',
+                            icon: 'transform',
+                            description: 'Crete a YAML document  from an existing YAML document',
+                            tags: ['Input:JSON', 'Output:YAML', 'Action:Convert']
+                        }
+                    ];
+                }
+                MetadataService.prototype.getTool = function (id) {
+                    return this.tools.filter(function (t) { return t.id == id; })[0];
+                };
+                MetadataService.prototype.getTools = function () {
+                    return this.tools;
+                };
+                MetadataService.prototype.getFacetValueIcon = function (tag) {
+                    switch (tag) {
+                        case 'Action:Format': return 'format_paint';
+                        case 'Action:Convert': return 'transform';
+                        case 'Output:JSON Schema': return 'account_tree';
+                    }
+                    var split = tag.split(':');
+                    switch (split[0]) {
+                        case 'Input': return 'settings_ethernet';
+                        case 'Output': return 'settings_ethernet';
+                    }
+                    return 'help';
+                };
+                MetadataService.prototype.getSearchFacets = function (search) {
+                    var _this = this;
+                    var facets = {};
+                    var searchTags = search.map(function (t) { return t.category + ":" + t.title; });
+                    var tools = this.tools.filter(function (t) { return searchTags.every(function (s) { return t.tags.includes(s); }); });
+                    search.forEach(function (s) {
+                        var facet = facets[s.category];
+                        if (!facet) {
+                            facet = {
+                                title: s.category,
+                                tags: {}
+                            };
+                            facets[s.category] = facet;
+                        }
+                        if (!facet.tags[s.title]) {
+                            facet.tags[s.title] = Object.assign({}, s, { selected: true });
+                        }
+                    });
+                    tools.forEach(function (tool) {
+                        tool.tags.forEach(function (tag) {
+                            var categories = tag.split(':');
+                            var category = categories[0];
+                            var subCategory = categories[1];
+                            var facet = facets[category];
+                            if (!facet) {
+                                facet = {
+                                    title: category,
+                                    tags: {}
+                                };
+                                facets[category] = facet;
+                            }
+                            if (!facet.tags[subCategory]) {
+                                facet.tags[subCategory] = {
+                                    title: subCategory,
+                                    icon: _this.getFacetValueIcon(tag),
+                                    category: category,
+                                    selected: false
+                                };
+                            }
+                        });
+                    });
+                    var searchFacets = Object.keys(facets)
+                        .sort()
+                        .map(function (k) {
+                        var facet = facets[k];
+                        facet.tags = Object.keys(facet.tags).map(function (t) { return facet.tags[t]; }).sort();
+                        return facet;
+                    });
+                    return [tools, searchFacets];
+                };
+                return MetadataService;
+            }());
+            MetadataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+                    providedIn: 'root'
+                })
+            ], MetadataService);
+            /***/ 
+        }),
+        /***/ "./src/app/core/page.service.ts": 
+        /*!**************************************!*\
+          !*** ./src/app/core/page.service.ts ***!
+          \**************************************/
+        /*! exports provided: PageService */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageService", function () { return PageService; });
+            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+            /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+            /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
+            var PageService = /** @class */ (function () {
+                function PageService(title, meta) {
+                    this.title = title;
+                    this.meta = meta;
+                }
+                PageService.prototype.set = function (page) {
+                    var title = page.title
+                        ? page.title + " | Flux Tools"
+                        : 'Flux Tools';
+                    this.title.setTitle(title);
+                    var description = page.description || '';
+                    this.meta.updateTag({ name: 'description', content: description });
+                };
+                return PageService;
+            }());
+            PageService.ctorParameters = function () { return [
+                { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["Title"] },
+                { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["Meta"] }
+            ]; };
+            PageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+                    providedIn: 'root'
+                })
+            ], PageService);
             /***/ 
         }),
         /***/ "./src/app/home/home.component.scss": 
@@ -490,7 +665,7 @@
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2hvbWUvaG9tZS5jb21wb25lbnQuc2NzcyJ9 */");
+            /* harmony default export */ __webpack_exports__["default"] = (".grid-container {\n  margin: 20px;\n}\n\n.dashboard-card {\n  position: absolute;\n  top: 15px;\n  left: 15px;\n  right: 15px;\n  bottom: 15px;\n}\n\n.dashboard-card a {\n  text-decoration: none;\n  color: inherit;\n}\n\n.dashboard-card a:focus {\n  text-decoration: none;\n}\n\n.dashboard-card a:hover {\n  text-decoration: underline;\n}\n\n.dashboard-card mat-card-content {\n  height: 100%;\n}\n\n.dashboard-card mat-card-content .mat-h3 {\n  margin: 0;\n}\n\n.dashboard-card .material-icons {\n  transform: scale(4);\n}\n\n.more-button {\n  position: absolute;\n  top: 5px;\n  right: 10px;\n}\n\n.dashboard-card-content {\n  text-align: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9DOlxcc291cmNlXFx0b29scy9zcmNcXGFwcFxcaG9tZVxcaG9tZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBQTtBQ0NGOztBREVBO0VBQ0Usa0JBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDQ0Y7O0FEQ0U7RUFDRSxxQkFBQTtFQUNBLGNBQUE7QUNDSjs7QURFRTtFQUNFLHFCQUFBO0FDQUo7O0FER0U7RUFDRSwwQkFBQTtBQ0RKOztBRElFO0VBSUUsWUFBQTtBQ0xKOztBREVJO0VBQ0UsU0FBQTtBQ0FOOztBREtFO0VBQ0UsbUJBQUE7QUNISjs7QURPQTtFQUNFLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFdBQUE7QUNKRjs7QURPQTtFQUNFLGtCQUFBO0FDSkYiLCJmaWxlIjoic3JjL2FwcC9ob21lL2hvbWUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZ3JpZC1jb250YWluZXIge1xuICBtYXJnaW46IDIwcHg7XG59XG5cbi5kYXNoYm9hcmQtY2FyZCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAxNXB4O1xuICBsZWZ0OiAxNXB4O1xuICByaWdodDogMTVweDtcbiAgYm90dG9tOiAxNXB4O1xuXG4gIGEge1xuICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbiAgICBjb2xvcjogaW5oZXJpdDtcbiAgfVxuXG4gIGE6Zm9jdXMge1xuICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbiAgfVxuXG4gIGE6aG92ZXIge1xuICAgIHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lO1xuICB9XG5cbiAgbWF0LWNhcmQtY29udGVudCB7XG4gICAgLm1hdC1oMyB7XG4gICAgICBtYXJnaW46IDA7XG4gICAgfVxuICAgIGhlaWdodDogMTAwJTtcbiAgfVxuXG4gIC5tYXRlcmlhbC1pY29ucyB7XG4gICAgdHJhbnNmb3JtOiBzY2FsZSg0KTtcbiAgfVxufVxuXG4ubW9yZS1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogNXB4O1xuICByaWdodDogMTBweDtcbn1cblxuLmRhc2hib2FyZC1jYXJkLWNvbnRlbnQge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG4iLCIuZ3JpZC1jb250YWluZXIge1xuICBtYXJnaW46IDIwcHg7XG59XG5cbi5kYXNoYm9hcmQtY2FyZCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAxNXB4O1xuICBsZWZ0OiAxNXB4O1xuICByaWdodDogMTVweDtcbiAgYm90dG9tOiAxNXB4O1xufVxuLmRhc2hib2FyZC1jYXJkIGEge1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG4gIGNvbG9yOiBpbmhlcml0O1xufVxuLmRhc2hib2FyZC1jYXJkIGE6Zm9jdXMge1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG4uZGFzaGJvYXJkLWNhcmQgYTpob3ZlciB7XG4gIHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lO1xufVxuLmRhc2hib2FyZC1jYXJkIG1hdC1jYXJkLWNvbnRlbnQge1xuICBoZWlnaHQ6IDEwMCU7XG59XG4uZGFzaGJvYXJkLWNhcmQgbWF0LWNhcmQtY29udGVudCAubWF0LWgzIHtcbiAgbWFyZ2luOiAwO1xufVxuLmRhc2hib2FyZC1jYXJkIC5tYXRlcmlhbC1pY29ucyB7XG4gIHRyYW5zZm9ybTogc2NhbGUoNCk7XG59XG5cbi5tb3JlLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiA1cHg7XG4gIHJpZ2h0OiAxMHB4O1xufVxuXG4uZGFzaGJvYXJkLWNhcmQtY29udGVudCB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn0iXX0= */");
             /***/ 
         }),
         /***/ "./src/app/home/home.component.ts": 
@@ -504,13 +679,44 @@
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomeComponent", function () { return HomeComponent; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+            /* harmony import */ var _core_metadata_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/metadata.service */ "./src/app/core/metadata.service.ts");
+            /* harmony import */ var _core_page_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/page.service */ "./src/app/core/page.service.ts");
             var HomeComponent = /** @class */ (function () {
-                function HomeComponent() {
+                function HomeComponent(metadata, page) {
+                    this.metadata = metadata;
+                    this.page = page;
+                    this.filters = [];
+                    this.title = 'All Tools';
+                    this.description = 'Search all tools available from Flux Tools.';
+                    this.onSearchChange();
                 }
                 HomeComponent.prototype.ngOnInit = function () {
+                    this.page.set({
+                        title: this.title,
+                        description: this.description
+                    });
+                };
+                HomeComponent.prototype.clear = function () {
+                    this.filters = [];
+                    this.onSearchChange();
+                };
+                HomeComponent.prototype.onSearchRemove = function (value) {
+                    var index = this.filters.indexOf(value);
+                    if (index >= 0) {
+                        this.filters.splice(index, 1);
+                    }
+                    this.onSearchChange();
+                };
+                HomeComponent.prototype.onSearchChange = function () {
+                    var _a;
+                    _a = this.metadata.getSearchFacets(this.filters), this.tools = _a[0], this.facets = _a[1];
                 };
                 return HomeComponent;
             }());
+            HomeComponent.ctorParameters = function () { return [
+                { type: _core_metadata_service__WEBPACK_IMPORTED_MODULE_2__["MetadataService"] },
+                { type: _core_page_service__WEBPACK_IMPORTED_MODULE_3__["PageService"] }
+            ]; };
             HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-home',
