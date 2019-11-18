@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div fxLayout=\"row\">\n  <div fxFlex=\"20\">\n    <mat-selection-list role=\"list\"\n      [(ngModel)]=\"filters\"\n      (selectionChange)=\"onSearchChange($event)\"\n      dense>\n      <div *ngFor=\"let facet of facets\">\n        <h3 matSubheader>{{facet.title}}</h3>\n        <mat-list-option *ngFor=\"let tag of facet.tags\"\n          [selected]=\"tag.selected\"\n          [value]=\"tag\">\n          <mat-icon matListIcon>{{tag.icon}}</mat-icon> {{tag.title}}\n        </mat-list-option>\n        <mat-divider></mat-divider>\n      </div>\n    </mat-selection-list>\n\n  </div>\n  <div fxFlex=\"80\">\n\n    <h1>{{title}}</h1>\n    <mat-chip-list #chipList\n      aria-label=\"Search Criteria\"\n      *ngIf=\"filters.length > 0\">\n      <mat-chip *ngFor=\"let filter of filters\"\n        removable=\"true\"\n        (removed)=\"onSearchRemove(filter)\">\n        {{filter.category}} = {{filter.title}}\n        <mat-icon matChipRemove>cancel</mat-icon>\n      </mat-chip>\n      <mat-chip removable=\"true\"\n        (removed)=\"clear()\">\n        Clear Search\n        <mat-icon matChipRemove>cancel</mat-icon>\n      </mat-chip>\n    </mat-chip-list>\n\n    <div class=\"grid-container\">\n\n      <mat-grid-list cols=\"4\">\n        <mat-grid-tile *ngFor=\"let tool of tools\">\n          <mat-card class=\"dashboard-card\">\n            <a [routerLink]=\"['tools', tool.id]\">\n              <mat-card-content fxLayout=\"column\"\n                fxLayoutFill>\n                <div class=\"mat-h3\">{{tool.title}}</div>\n                <div fxFlex\n                  fxLayout=\"column\"\n                  fxLayoutFill\n                  fxLayoutAlign=\"center center\">\n                  <mat-icon color=\"primary\">{{tool.icon}}</mat-icon>\n                </div>\n              </mat-card-content>\n            </a>\n          </mat-card>\n        </mat-grid-tile>\n      </mat-grid-list>\n    </div>\n  </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div fxLayout=\"row\">\n  <div fxFlex=\"25\"\n    *ngIf=\"showSidebar$|async\">\n    <mat-selection-list role=\"list\"\n      [(ngModel)]=\"filters\"\n      (selectionChange)=\"onSearchChange($event)\"\n      dense>\n      <div *ngFor=\"let facet of facets\">\n        <h3 matSubheader>{{facet.title}}</h3>\n        <mat-list-option *ngFor=\"let tag of facet.tags\"\n          [selected]=\"tag.selected\"\n          [value]=\"tag\">\n          <mat-icon matListIcon>{{tag.icon}}</mat-icon> {{tag.title}}\n        </mat-list-option>\n        <mat-divider></mat-divider>\n      </div>\n    </mat-selection-list>\n\n  </div>\n  <div fxFlex=\"fill\">\n\n    <h1>{{title}}</h1>\n    <mat-chip-list #chipList\n      aria-label=\"Search Criteria\">\n      <mat-chip *ngFor=\"let filter of filters\"\n        removable=\"true\"\n        (removed)=\"onSearchRemove(filter)\">\n        {{filter.category}} = {{filter.title}}\n        <mat-icon matChipRemove>cancel</mat-icon>\n      </mat-chip>\n      <mat-chip removable=\"true\"\n        (removed)=\"clear()\" *ngIf=\"filters.length > 1\">\n        Clear All\n        <mat-icon matChipRemove>cancel</mat-icon>\n      </mat-chip>\n    </mat-chip-list>\n\n    <div class=\"grid-container\">\n      <mat-grid-list [cols]=\"numberOfColumns|async\">\n        <mat-grid-tile *ngFor=\"let tool of tools\">\n          <mat-card class=\"dashboard-card\">\n            <a [routerLink]=\"['tools', tool.id]\">\n              <mat-card-content fxLayout=\"column\"\n                fxLayoutFill>\n                <div class=\"mat-h3\">{{tool.title}}</div>\n                <div fxFlex\n                  fxLayout=\"column\"\n                  fxLayoutFill\n                  fxLayoutAlign=\"center center\">\n                  <mat-icon color=\"primary\">{{tool.icon}}</mat-icon>\n                </div>\n              </mat-card-content>\n            </a>\n          </mat-card>\n        </mat-grid-tile>\n      </mat-grid-list>\n    </div>\n  </div>\n</div>");
 
 /***/ }),
 
@@ -666,17 +666,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _core_metadata_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/metadata.service */ "./src/app/core/metadata.service.ts");
 /* harmony import */ var _core_page_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/page.service */ "./src/app/core/page.service.ts");
+/* harmony import */ var _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/layout */ "./node_modules/@angular/cdk/esm2015/layout.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+
+
 
 
 
 
 let HomeComponent = class HomeComponent {
-    constructor(metadata, page) {
+    constructor(breakpointObserver, metadata, page) {
+        this.breakpointObserver = breakpointObserver;
         this.metadata = metadata;
         this.page = page;
         this.filters = [];
         this.title = 'All Tools';
         this.description = 'Search all tools available from Flux Tools.';
+        this.numberOfColumns = this.breakpointObserver.observe([
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["Breakpoints"].Handset,
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["Breakpoints"].XSmall,
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["Breakpoints"].Small,
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["Breakpoints"].Medium,
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["Breakpoints"].Large,
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["Breakpoints"].XLarge
+        ]).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(({ matches }) => {
+            if (this.breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["Breakpoints"].XSmall)) {
+                return 2;
+            }
+            if (this.breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["Breakpoints"].Small)) {
+                return 2;
+            }
+            if (this.breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["Breakpoints"].Medium)) {
+                return 4;
+            }
+            return 4;
+        }));
+        this.showSidebar$ = this.breakpointObserver.observe([_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["Breakpoints"].XSmall])
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(result => !result.matches), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["shareReplay"])());
         this.onSearchChange();
     }
     ngOnInit() {
@@ -701,6 +727,7 @@ let HomeComponent = class HomeComponent {
     }
 };
 HomeComponent.ctorParameters = () => [
+    { type: _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__["BreakpointObserver"] },
     { type: _core_metadata_service__WEBPACK_IMPORTED_MODULE_2__["MetadataService"] },
     { type: _core_page_service__WEBPACK_IMPORTED_MODULE_3__["PageService"] }
 ];
